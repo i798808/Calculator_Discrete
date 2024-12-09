@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permutations and Combinations by Zoe</title>
+    <script src="scripts.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background-color: #6a0a37;
+            padding: 20px;
+            color: white;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-box img {
+            margin-right: 15px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .logo-box div {
+            text-align: left;
+        }
+
+        .logo-box b {
+            font-size: 1.5em;
+        }
+
+        a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            max-width: 100%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #FFC107;
+            color: #333;
+        }
+
+        h2 {
+            color: #000000;
+            margin: 0;
+            text-align: center;
+        }
+
+        .special-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .special-header button {
+            margin-left: 20px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input {
+            padding: 5px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #6a0a37;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .logo-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            table {
+                width: 100%;
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            button {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+
+            input {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            .special-header {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                font-size: 0.8em;
+                padding: 5px;
+            }
+
+            button {
+                padding: 5px 8px;
+                font-size: 0.8em;
+            }
+
+            input {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="logo-box">
+            <img id="myImage" src="Usagi_main.webp" alt="Logo" width="80" height="80">
+            <div>
+                <b>Permutations and Combinations</b><br>
+                <span>by Zoe, <a href="mailto:i798808@gmail.com">i798808@gmail.com</a></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Table -->
+    <h2>Compute Permutations and Combinations</h2>
+    <table>
+        <tr>
+            <th>Formula</th>
+            <th>
+                <label><i>n</i> = </label>
+                <input type="number" id="n" value="7" min="0" class="small-input">
+                <label><i>r</i> = </label>
+                <input type="number" id="r" value="3" min="0" class="small-input">
+            </th>
+            <th>Action</th>
+            <th>Order Relevant</th>
+            <th>Repetition</th>
+            <th>Description</th>
+        </tr>
+
+        <tr>
+            <td><label><i>P</i>(<i>n</i>, <i>r</i>)</label></td>
+            <td><span id="resPermutation"></span></td>
+            <td><button type="button" onclick="clickPerm()">Calculate</button></td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>Permutations of size <i>r</i> from <i>n</i> objects</td>
+        </tr>
+
+        <tr>
+            <td><label><i>C</i>(<i>n</i>, <i>r</i>)</label></td>
+            <td><span id="resCombination"></span></td>
+            <td><button type="button" onclick="clickComb()">Calculate</button></td>
+            <td>No</td>
+            <td>No</td>
+            <td>Combinations of size <i>r</i> from <i>n</i> objects</td>
+        </tr>
+
+        <tr>
+            <td><label><i>n<sup>r</sup></i></label></td>
+            <td><span id="resArrangement"></span></td>
+            <td><button type="button" onclick="clickArra()">Calculate</button></td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Arrangements with repetition of size <i>r</i></td>
+        </tr>
+
+        <tr>
+            <td><label><i>C</i>(<i>r</i>+<i>n</i>-1, <i>r</i>)</label></td>
+            <td><span id="resSelectrofn"></span></td>
+            <td><button type="button" onclick="clickSele()">Calculate</button></td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Selections with repetition of size <i>r</i></td>
+        </tr>
+    </table>
+
+    <!-- Special Number Series -->
+    <div class="special-header">
+        <h2>Special Number Series</h2>
+        <button type="button" onclick="displayResults()">Compute</button>
+    </div>
+    <table>
+        <tr>
+            <th>Number Series</th>
+            <th>Results</th>
+        </tr>
+        <tr>
+            <td>Triangular Numbers</td>
+            <td><span id="triangularResult"></span></td>
+        </tr>
+        <tr>
+            <td>Harmonic Numbers</td>
+            <td><span id="harmonicResult"></span></td>
+        </tr>
+        <tr>
+            <td>Fibonacci Numbers</td>
+            <td><span id="fibonacciResult"></span></td>
+        </tr>
+        <tr>
+            <td>Lucas Numbers</td>
+            <td><span id="lucasResult"></span></td>
+        </tr>
+        <tr>
+            <td>Catalan Numbers</td>
+            <td><span id="catalanResult"></span></td>
+        </tr>
+        <tr>
+            <td>Eulerian Numbers</td>
+            <td><span id="eulerianResult"></span></td>
+        </tr>
+    </table>
+
+    <!-- Distribute m Objects into n Containers -->
+    <h2>Distribute m Objects into n Containers</h2>
+    <table>
+        <tr>
+            <th>Distinct Objects (m)</th>
+            <th>Distinct Containers (n)</th>
+            <th>Some Empty Containers</th>
+            <th>Number of Distributions</th>
+            <th>Interpretation</th>
+            <th>Action</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>n<sup>m</sup></td>
+            <td>Each of the m distinct objects may be distributed into any of the n distinct containers</td>
+            <td><button onclick="computeNm()">Compute</button></td>
+            <td><span id="nmResult"></span></td>
+        </tr>
+        <tr>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>No</td>
+            <td>n!S(m, n)</td>
+            <td>Each of the m distinct objects may be distributed onto any of the n distinct containers with no containers empty</td>
+            <td><button onclick="computeStirling()">Compute</button></td>
+            <td><span id="stirlingResult"></span></td>
+        </tr>
+        <tr>
+            <td>Yes</td>
+            <td>No</td>
+            <td>Yes</td>
+            <td>S(m, 1) + S(m, 2) + ... + S(m, n)</td>
+            <td>m distinct objects onto 1, 2, ..., n identical containers, leaving no container empty</td>
+            <td><button onclick="computeSumStirling()">Compute</button></td>
+            <td><span id="sumStirlingResult"></span></td>
+        </tr>
+        <tr>
+            <td>Yes</td>
+            <td>No</td>
+            <td>No</td>
+            <td>S(m, n)</td>
+            <td>m distinct objects onto n identical containers, leaving no container empty</td>
+            <td><button onclick="computeExactStirling()">Compute</button></td>
+            <td><span id="exactStirlingResult"></span></td>
+        </tr>
+        <tr>
+            <td>No</td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td><sup>m + n - 1</sup>C<sub>m</sub></td>
+            <td>Ordering food from the view of kitchen</td>
+            <td><button onclick="computeCombination()">Compute</button></td>
+            <td><span id="combinationResult"></span></td>
+        </tr>
+    </table>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Permutations and Combinations by Zoe. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
