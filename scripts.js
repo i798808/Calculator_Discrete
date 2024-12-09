@@ -76,7 +76,7 @@ function computeNm() {
         return;
     }
     const result = Math.pow(n, m);
-    document.getElementById("nmResult").innerText = `Result: ${result}`;
+    document.getElementById("nmResult").innerText = `${result}`;
 }
 
 // n! * S(m, n) 計算
@@ -88,7 +88,7 @@ function computeStirling() {
         return;
     }
     const result = factorial(n) * stirlingNumberSecondKind(m, n);
-    document.getElementById("stirlingResult").innerText = `Result: ${result}`;
+    document.getElementById("stirlingResult").innerText = `${result}`;
 }
 
 // S(m, 1) + ... + S(m, n) 計算
@@ -103,7 +103,7 @@ function computeSumStirling() {
     for (let i = 1; i <= n; i++) {
         sum += stirlingNumberSecondKind(m, i);
     }
-    document.getElementById("sumStirlingResult").innerText = `Result: ${sum}`;
+    document.getElementById("sumStirlingResult").innerText = `${sum}`;
 }
 
 // S(m, n) 計算
@@ -115,7 +115,7 @@ function computeExactStirling() {
         return;
     }
     const result = stirlingNumberSecondKind(m, n);
-    document.getElementById("exactStirlingResult").innerText = `Result: ${result}`;
+    document.getElementById("exactStirlingResult").innerText = `${result}`;
 }
 
 // C(m + n - 1, m) 計算
@@ -127,7 +127,7 @@ function computeCombination() {
         return;
     }
     const result = factorial(m + n - 1) / (factorial(m) * factorial(n - 1));
-    document.getElementById("combinationResult").innerText = `Result: ${result}`;
+    document.getElementById("combinationResult").innerText = `${result}`;
 }
 
 // 第二類 Stirling 數計算
