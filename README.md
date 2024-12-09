@@ -1,4 +1,5 @@
 # Permutations and Combinations Tool (By Zoe)
+https://github.com/i798808/Calculator_Discrete.git
 
 ## 描述
 本專案提供了一個全面的工具，用於計算和理解各種數學概念，例如排列、組合、特殊數列以及將物體分配到容器的方式。此工具適合教育和實用目的，並包含一個互動式網頁界面來執行計算。
