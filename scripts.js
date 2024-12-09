@@ -4,7 +4,7 @@ function factorial(num) {
     return num * factorial(num - 1);
 }
 
-// 計算排列
+// 計算排列 P(n, r)
 function calculatePermutation(n, r) {
     let result = 1;
     for (let i = 0; i < r; i++) {
@@ -13,12 +13,12 @@ function calculatePermutation(n, r) {
     return result;
 }
 
-// 計算組合
+// 計算組合 C(n, r)
 function calculateCombination(n, r) {
     return calculatePermutation(n, r) / factorial(r);
 }
 
-// 驗證輸入
+// 驗證輸入有效性
 function isValidInput(n, r) {
     if (n < 0 || isNaN(n)) {
         alert("Invalid value for n. Please enter a non-negative integer.");
@@ -35,63 +35,128 @@ function isValidInput(n, r) {
     return true;
 }
 
-// 計算 P(n, r)
+// P(n, r) 計算
 function clickPerm() {
     const n = parseInt(document.getElementById("n").value, 10);
     const r = parseInt(document.getElementById("r").value, 10);
-
     if (!isValidInput(n, r)) return;
-
     document.getElementById("resPermutation").innerText = calculatePermutation(n, r);
 }
 
-// 計算 C(n, r)
+// C(n, r) 計算
 function clickComb() {
     const n = parseInt(document.getElementById("n").value, 10);
     const r = parseInt(document.getElementById("r").value, 10);
-
     if (!isValidInput(n, r)) return;
-
     document.getElementById("resCombination").innerText = calculateCombination(n, r);
 }
 
-// 計算 n^r
+// n^r 計算
 function clickArra() {
     const n = parseInt(document.getElementById("n").value, 10);
     const r = parseInt(document.getElementById("r").value, 10);
-
     if (!isValidInput(n, r)) return;
-
     document.getElementById("resArrangement").innerText = Math.pow(n, r);
 }
 
-// 計算 C(r + n - 1, r)
+// C(r + n - 1, r) 計算
 function clickSele() {
     const n = parseInt(document.getElementById("n").value, 10);
     const r = parseInt(document.getElementById("r").value, 10);
-
     if (!isValidInput(n, r)) return;
-
     document.getElementById("resSelectrofn").innerText = calculateCombination(n + r - 1, r);
 }
 
-// 計算三角數
+// n^m 計算
+function computeNm() {
+    const m = parseInt(prompt("Enter m (Distinct Objects):"));
+    const n = parseInt(prompt("Enter n (Distinct Containers):"));
+    if (isNaN(m) || isNaN(n)) {
+        alert("Please enter valid numbers!");
+        return;
+    }
+    const result = Math.pow(n, m);
+    document.getElementById("nmResult").innerText = `Result: ${result}`;
+}
+
+// n! * S(m, n) 計算
+function computeStirling() {
+    const m = parseInt(prompt("Enter m (Distinct Objects):"));
+    const n = parseInt(prompt("Enter n (Distinct Containers):"));
+    if (isNaN(m) || isNaN(n)) {
+        alert("Please enter valid numbers!");
+        return;
+    }
+    const result = factorial(n) * stirlingNumberSecondKind(m, n);
+    document.getElementById("stirlingResult").innerText = `Result: ${result}`;
+}
+
+// S(m, 1) + ... + S(m, n) 計算
+function computeSumStirling() {
+    const m = parseInt(prompt("Enter m (Distinct Objects):"));
+    const n = parseInt(prompt("Enter n (Identical Containers):"));
+    if (isNaN(m) || isNaN(n)) {
+        alert("Please enter valid numbers!");
+        return;
+    }
+    let sum = 0;
+    for (let i = 1; i <= n; i++) {
+        sum += stirlingNumberSecondKind(m, i);
+    }
+    document.getElementById("sumStirlingResult").innerText = `Result: ${sum}`;
+}
+
+// S(m, n) 計算
+function computeExactStirling() {
+    const m = parseInt(prompt("Enter m (Distinct Objects):"));
+    const n = parseInt(prompt("Enter n (Identical Containers):"));
+    if (isNaN(m) || isNaN(n)) {
+        alert("Please enter valid numbers!");
+        return;
+    }
+    const result = stirlingNumberSecondKind(m, n);
+    document.getElementById("exactStirlingResult").innerText = `Result: ${result}`;
+}
+
+// C(m + n - 1, m) 計算
+function computeCombination() {
+    const m = parseInt(prompt("Enter m (Objects):"));
+    const n = parseInt(prompt("Enter n (Containers):"));
+    if (isNaN(m) || isNaN(n)) {
+        alert("Please enter valid numbers!");
+        return;
+    }
+    const result = factorial(m + n - 1) / (factorial(m) * factorial(n - 1));
+    document.getElementById("combinationResult").innerText = `Result: ${result}`;
+}
+
+// 第二類 Stirling 數計算
+function stirlingNumberSecondKind(m, n) {
+    const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+    dp[0][0] = 1;
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            dp[i][j] = j * dp[i - 1][j] + dp[i - 1][j - 1];
+        }
+    }
+    return dp[m][n];
+}
+
+// 三角數計算
 function computeTriangular(n) {
     return Array.from({ length: n }, (_, i) => ((i + 1) * (i + 2)) / 2);
 }
 
-// 計算諧和數
+// 諧和數計算
 function computeHarmonic(n) {
     return Array.from({ length: n }, (_, i) => {
         let sum = 0;
-        for (let j = 1; j <= i + 1; j++) {
-            sum += 1 / j;
-        }
+        for (let j = 1; j <= i + 1; j++) sum += 1 / j;
         return sum.toFixed(2);
     });
 }
 
-// 計算斐波那契數列
+// 斐波那契數列計算
 function computeFibonacci(n) {
     const fibonacci = [0, 1];
     for (let i = 2; i < n; i++) {
@@ -100,7 +165,7 @@ function computeFibonacci(n) {
     return fibonacci.slice(0, n);
 }
 
-// 計算 Lucas 數列
+// Lucas 數列計算
 function computeLucas(n) {
     const lucas = [2, 1];
     for (let i = 2; i < n; i++) {
@@ -109,17 +174,16 @@ function computeLucas(n) {
     return lucas.slice(0, n);
 }
 
-// 計算 Catalan 數
+// Catalan 數計算
 function computeCatalan(n) {
     return Array.from({ length: n }, (_, i) =>
         factorial(2 * i) / (factorial(i + 1) * factorial(i))
     );
 }
 
-// 計算 Eulerian 數列
+// Eulerian 數列計算
 function computeEulerian(m) {
     const eulerian = Array.from({ length: m + 1 }, () => Array(m).fill(0));
-
     eulerian[0][0] = 1; // 初始化邊界條件
 
     for (let i = 1; i <= m; i++) {
